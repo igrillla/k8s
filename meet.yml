@@ -8,39 +8,41 @@ user:
     - linux
     - sql
   from:
+    country: Russia
+    city: Krasnodar
+    street: Novorossiiskaya
   animals:
     - cat
     - dog
 
 skills:
-  - docker:
+  docker:
     level: 3
     Description: |
-    Могу писать docker-compose.yml
-    Собирать образы и так далее
-  - linux:
+      Могу писать docker-compose.yml
+      Собирать образы и так далее
+  linux:
     level: 4
     Description: |
-    Администрирование ОС
-  - sql:
+      Администрирование ОС
+  sql:
     level: 5
     Description: |
-    Пишу запросы любой сложности.
-    Могу оптимизировать не оптимальные запросы.
-    Знаю, как работает БД изнутри
+      Пишу запросы любой сложности.
+      Могу оптимизировать не оптимальные запросы.
+      Знаю, как работает БД изнутри
 
 from:
-  - country: Russia
-  - city: Krasnodar
-  - street: Novorossiiskaya
+  country: Russia
+  city: Krasnodar
+  street: Novorossiiskaya
 
 animals:
-  - cat:
+  cat:
     name: Барсик
     color: black
     myau: true
-  - dog:
+  dog:
     name: bobik
-    coclor: white
+    color: white
     myau: false
-    
