@@ -36,10 +36,10 @@ from:
 
 animals:
   - cat:
-        name: Барсик
-  color: black
-     myau: true
-   - dog:
+    name: Барсик
+    color: black
+    myau: true
+  - dog:
     name: bobik
     coclor: white
     myau: false
