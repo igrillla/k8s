@@ -1,0 +1,45 @@
+user:
+  isAdmin: true
+  name: Igrillla
+  age: 31
+  Doljnost: tech expert
+  skills:
+    - docker
+    - linux
+    - sql
+  from:
+  animals:
+    - cat
+    - dog
+
+skills:
+  - docker:
+    level: 3
+    Description: |
+    Могу писать docker-compose.yml
+    Собирать образы и так далее
+  - linux:
+    level: 4
+    Description: |
+    Администрирование ОС
+  - sql:
+    level: 5
+    Description: |
+    Пишу запросы любой сложности.
+    Могу оптимизировать не оптимальные запросы.
+    Знаю, как работает БД изнутри
+
+from:
+  - country: Russia
+  - city: Krasnodar
+  - street: Novorossiiskaya
+
+animals:
+  - cat:
+    name: Барсик
+    color: black
+    myau: true
+  - dog:
+    name: bobik
+    coclor: white
+    myau: false
