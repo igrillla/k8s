@@ -11,6 +11,8 @@ user:
     country: Russia
     city: Krasnodar
     street: Novorossiiskaya
+    house: 90
+    room: 10
   animals:
     - cat
     - dog
@@ -36,15 +38,17 @@ from:
   country: Russia
   city: Krasnodar
   street: Novorossiiskaya
+  house: 90
+  room: 10
 
 animals:
   cat:
     name: Барсик
-    color: black
-    myau: true
+    poroda: black
+    isMyau: true
   dog:
     name: bobik
-    color: white
-    myau: false
+    poroda: white
+    isMyau: false
 
 # для pull request
