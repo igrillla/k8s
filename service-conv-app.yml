@@ -9,4 +9,4 @@ spec:
       nodePort: 31000
       targetPort: 80
   selector:
-    components: conv
+    components: conv-app
