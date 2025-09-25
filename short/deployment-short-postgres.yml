@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-short-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: short-postgres
+  template:
+    metadata:
+      name: short-postgres
+      labels:
+        components: short-postgres
+    spec:
+      containers:
+        - name: short-postgres
+          image: postgres:16
+          env:
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: user
+            - name: POSTGRES_DB
+              value: short-db
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              memory: "528Mi" 
+              cpu: "300m"
