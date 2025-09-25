@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: myingress
+  name: ingress-short
   annotations:
     nginx.ingress.kubernetes.io/add-base-url: "true"
 spec:
   ingressClassName: nginx
   rules:
-  - host: conv.test
+  - host: short.test
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: conv-app
+            name: short-app
             port: 
               number: 80

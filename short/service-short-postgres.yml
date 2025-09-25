@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: short-postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      protocol: TCP
+  selector:
+    components: short-postgres
