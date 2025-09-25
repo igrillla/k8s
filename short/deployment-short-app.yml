@@ -6,7 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      components: shorts-app
+      components: short-app
   template:
     metadata:
       name: short-app
