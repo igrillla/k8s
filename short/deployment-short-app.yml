@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: short-app
-          image: antonlarichev/short-app
+          image: antonlarichev/short-app:v1.4
           ports:
             - containerPort: 80
           resources:

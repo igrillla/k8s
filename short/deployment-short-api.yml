@@ -15,9 +15,10 @@ spec:
     spec:
       containers:
         - name: short-api
-          image: antonlarichev/short-api
+          image: antonlarichev/short-api:v1.0
           env:
             - name: DATABASE_URL
+              # value: postgresql://postgres:postgres@service-short-postgres:5432/postgres
               valueFrom:
                 secretKeyRef:
                   name: secret-short-api
