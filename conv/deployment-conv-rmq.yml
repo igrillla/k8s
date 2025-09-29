@@ -17,12 +17,18 @@ spec:
         - name: conv-rmq
           image: rabbitmq:4.1.4-management
           ports:
-            - containerPort: 15672
+            - containerPort: 5672
           env:
             - name: RABBITMQ_DEFAULT_USER
-              value: rmq
+              valueFrom:
+                secretKeyRef:
+                  name: secret-conv-rmq
+                  key: RABBITMQ_DEFAULT_USER
             - name: RABBITMQ_DEFAULT_PASS
-              value: rmq
+              valueFrom:
+                secretKeyRef:
+                  name: secret-conv-rmq
+                  key: RABBITMQ_DEFAULT_PASS
           resources:
             limits:
               memory: "512Mi"
