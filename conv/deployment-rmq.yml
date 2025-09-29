@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: conv-rmq
-          image: rabbitmq:4.1.4
+          image: rabbitmq:4.1.4-management
           ports:
-            - containerPort: 5672
+            - containerPort: 15672
           env:
             - name: RABBITMQ_DEFAULT_USER
               value: rmq
