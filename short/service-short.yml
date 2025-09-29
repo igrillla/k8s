@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: short-app
+  name: service-short-app
 spec:
   type: ClusterIP
   ports:
@@ -13,7 +13,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: short-postgres
+  name: service-short-postgres
 spec:
   type: ClusterIP
   ports:
@@ -21,3 +21,15 @@ spec:
       protocol: TCP
   selector:
     components: short-postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-short-api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    components: short-api

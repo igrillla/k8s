@@ -15,11 +15,10 @@ spec:
     spec:
       containers:
         - name: short-app
-          image: antonlarichev/short-app
-          imagePullPolicy: Always
+          image: antonlarichev/short-app:v1.4
           ports:
             - containerPort: 80
           resources:
             limits:
-              memory: "128Mi" 
+              memory: "500Mi" 
               cpu: "500m"

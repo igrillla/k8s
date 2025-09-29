@@ -18,11 +18,23 @@ spec:
           image: postgres:16
           env:
             - name: POSTGRES_USER
-              value: postgres
+              # value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: secret-short-postgres
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
-              value: postgres
+              # value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: secret-short-postgres
+                  key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
-              value: postgres
+              # value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: secret-short-postgres
+                  key: POSTGRES_DB
           ports:
             - containerPort: 5432
           resources:
