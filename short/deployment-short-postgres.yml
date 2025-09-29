@@ -18,14 +18,22 @@ spec:
           image: postgres:16
           env:
             - name: POSTGRES_USER
-              value: user
+              value: postgres
             - name: POSTGRES_PASSWORD
-              value: user
+              value: postgres
             - name: POSTGRES_DB
-              value: short-db
+              value: postgres
           ports:
             - containerPort: 5432
           resources:
             limits:
               memory: "528Mi" 
               cpu: "300m"
+          volumeMounts:
+            - name: pvc-short-postgres
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+      volumes:
+        - name: pvc-short-postgres
+          persistentVolumeClaim:
+            claimName: pvc-short-postgres

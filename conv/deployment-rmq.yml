@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-conv-rmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: conv-rmq
+  template:
+    metadata:
+      name: conv-rmq
+      labels:
+        components: conv-rmq
+    spec:
+      containers:
+        - name: conv-rmq
+          image: rabbitmq:4.1.4
+          ports:
+            - containerPort: 5672
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: rmq
+            - name: RABBITMQ_DEFAULT_PASS
+              value: rmq
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: pvc-conv-rmq
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: pvc-conv-rmq
+          persistentVolumeClaim:
+            claimName: pvc-conv-rmq
