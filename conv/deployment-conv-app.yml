@@ -17,9 +17,16 @@ spec:
         - name: conv-app
           image: antonlarichev/conv-app:1.2
           ports:
-            - containerPort: 81
+            - containerPort: 80
           resources:
             limits:
               memory: "512Mi"
               cpu: "500m"
+          volumeMounts:
+            - name: configmap-conv-service
+              mountPath: /
+      volumes:
+        - name: configmap-conv-service
+          configMap:
+            name: configmap-conv-service
 
