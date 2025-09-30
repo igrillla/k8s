@@ -22,9 +22,12 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
-          volumeMounts:
-            - name: configmap-conv-service
-              mountPath: /
+          env:
+            - name: VITE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap-conv-service
+                  key: VITE_DOMAIN
       volumes:
         - name: configmap-conv-service
           configMap:

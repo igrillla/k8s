@@ -22,22 +22,22 @@ spec:
             - name: AMQP_USER
               valueFrom:
                 secretKeyRef:
-                  name: secret-conv-api-converter
+                  name: secret-conv-api-service
                   key: AMQP_USER
             - name: AMQP_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: secret-conv-api-converter
+                  name: secret-conv-api-service
                   key: AMQP_PASSWORD
             - name: AMQP_HOSTNAME
               valueFrom:
                 secretKeyRef:
-                  name: secret-conv-api-converter
+                  name: secret-conv-api-service
                   key: AMQP_HOSTNAME
             - name: AMQP_EXCHANGE
               valueFrom:
                 secretKeyRef:
-                  name: secret-conv-api-converter
+                  name: secret-conv-api-service
                   key: AMQP_EXCHANGE
           resources:
             limits:
