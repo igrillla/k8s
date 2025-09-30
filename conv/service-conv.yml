@@ -5,7 +5,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 81
+    - port: 80
       protocol: TCP
   selector:
     components: conv-app
@@ -30,7 +30,19 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 81
+    - port: 3000
       protocol: TCP
   selector:
     components: conv-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-conv-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    components: conv-service

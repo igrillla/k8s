@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-conv-api
+  name: deployment-conv-service
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
-      components: conv-api
+      components: conv-service
   template:
     metadata:
-      name: conv-api
+      name: conv-service
       labels:
-        components: conv-api
+        components: conv-service
     spec:
       containers:
-        - name: conv-api
-          image: antonlarichev/conv-api:1.0
-          ports:
-            - containerPort: 3000
+        - name: conv-service
+          image: antonlarichev/conv-service:1.0
+          # ports:
+          #   - containerPort: 81
           env:
             - name: AMQP_USER
               valueFrom:
@@ -39,14 +39,12 @@ spec:
                 secretKeyRef:
                   name: secret-conv-api-service
                   key: AMQP_EXCHANGE
+            - name: AMQP_QUEUE
+              valueFrom:
+                secretKeyRef:
+                  name: secret-conv-api-service
+                  key: AMQP_QUEUE
           resources:
             limits:
               memory: "512Mi"
               cpu: "500m"
-          volumeMounts:
-            - name: pvc-conv-api
-              mountPath: /opt/app/uploads
-      volumes:
-        - name: pvc-conv-api
-          persistentVolumeClaim:
-            claimName: pvc-conv-api
