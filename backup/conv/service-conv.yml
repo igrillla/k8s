@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-conv-app
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    components: conv-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-conv-rmq
+spec:
+  type: ClusterIP
+  ports:
+    - port: 15672
+      targetPort: 5672
+      protocol: TCP
+  selector:
+    components: conv-rmq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-conv-api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    components: conv-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-conv-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    components: conv-service

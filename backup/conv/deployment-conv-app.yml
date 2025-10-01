@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-conv-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: conv-app
+  template:
+    metadata:
+      name: conv-app
+      labels:
+        components: conv-app
+    spec:
+      containers:
+        - name: conv-app
+          image: antonlarichev/conv-app:1.2
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          env:
+            - name: VITE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap-conv-service
+                  key: VITE_DOMAIN
+      volumes:
+        - name: configmap-conv-service
+          configMap:
+            name: configmap-conv-service
+
