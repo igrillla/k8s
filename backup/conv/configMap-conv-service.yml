@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-conv-service
+data: 
+  VITE_DOMAIN: conv.test
+  
