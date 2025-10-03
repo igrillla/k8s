@@ -1,0 +1,1 @@
+kubectl delete deployments,services,pods,replicasets,statefulsets,daemonsets,jobs,cronjobs,ingresses,secrets --all

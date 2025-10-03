@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-{{ .Values.rmq.name }}
+spec:
+  accessModes:
+    {{- toYaml .Values.rmq.pvc.accessModes | nindent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.rmq.pvc.storage }}

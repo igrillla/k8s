@@ -1,0 +1,54 @@
+app:
+  version: 1.2
+  name: conv-app
+  image: antonlarichev/conv-app
+  replicas: 1
+  port: 80
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  configMap: configmap-conv-service
+rmq:
+  version: 4.1.4-management
+  name: conv-rmq
+  image: rabbitmq
+  replicas: 1
+  port: 15672
+  targetPort: 5672
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  mountPath: /var/lib/rabbitmq
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
+api:
+  version: "1.0"
+  name: conv-api
+  image: antonlarichev/conv-api
+  replicas: 1
+  port: 3000
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  mountPath: /opt/app/uploads
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
+service:
+  version: "1.0"
+  name: conv-service
+  image: antonlarichev/conv-service
+  replicas: 1
+  port: 3000
+  limits:
+    memory: 512Mi
+    cpu: 500m
+ingress:
+  name: ingress-conv
+  ingressClassName: nginx
+  host: conv.test
+secret:
+  name: secret-conv-api-service
