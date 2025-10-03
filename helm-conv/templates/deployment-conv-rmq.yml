@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-{{ .Values.rmq.name }}
+spec:
+  replicas: {{ .Values.rmq.replicas }}
+  selector:
+    matchLabels:
+      components: {{ .Values.rmq.name }}
+  template:
+    metadata:
+      name: {{ .Values.rmq.name }}
+      labels:
+        components: {{ .Values.rmq.name }}
+    spec:
+      containers:
+        - name: {{ .Values.rmq.name }}
+          image: {{ .Values.rmq.image }}:{{ .Values.rmq.version }}
+          ports:
+            - containerPort: {{ .Values.rmq.targetPort }}
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret-{{ .Values.rmq.name }}
+                  key: RABBITMQ_DEFAULT_USER
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: secret-{{ .Values.rmq.name }}
+                  key: RABBITMQ_DEFAULT_PASS
+          resources:
+            limits: {{- toYaml .Values.rmq.limits | nindent 14}}
+          volumeMounts:
+            - name: pvc-{{ .Values.rmq.name }}
+              mountPath: {{ .Values.rmq.mountPath }}
+      volumes:
+        - name: pvc-{{ .Values.rmq.name }}
+          persistentVolumeClaim:
+            claimName: pvc-{{ .Values.rmq.name }}

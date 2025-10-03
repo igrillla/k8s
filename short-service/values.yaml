@@ -1,0 +1,36 @@
+app:
+  version: v1.4
+  name: short-app
+  image: antonlarichev/short-app
+  replicas: 1
+  port: 80
+  limits:
+    memory: 128Mi
+    cpu: 100m
+postgres:
+  version: 16
+  name: short-postgres
+  image: postgres
+  replicas: 1
+  port: 5432
+  limits:
+    memory: 528Mi
+    cpu: 300m
+  mountPath: /var/lib/postgresql/data
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
+api:
+  version: v1.0
+  name: short-api
+  image: antonlarichev/short-api
+  replicas: 1
+  port: 3000
+  limits:
+    memory: 500Mi
+    cpu: 200m
+ingress:
+  name: ingress-short
+  ingressClassName: nginx
+  host: short.test

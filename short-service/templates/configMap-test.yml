@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-test
+data:
+  key: {{ .Release.Name }}
+  
