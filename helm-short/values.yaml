@@ -1,0 +1,57 @@
+app:
+  name: short-app
+  replicas: 1
+  image: antonlarichev/short-app
+  version: v1.4
+  port: 80
+  limits:
+    memory: 128Mi
+    cpu: 100m
+
+api:
+  name: short-api
+  replicas: 1
+  image: antonlarichev/short-api
+  version: v1.0
+  port: 3000
+  limits:
+    memory: 500Mi
+    cpu: 200m
+  secret:
+    - DATABASE_URL
+
+postgres:
+  name: short-postgres
+  replicas: 1
+  image: postgres
+  version: 16
+  port: 5432
+  limits:
+    memory: 528Mi
+    cpu: 300m
+  env:
+    - name: POSTGRES_DB
+      value: postgres
+  secret:
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
+  mountPath: /var/lib/postgresql/data
+
+ingress:
+  name: ingress-short
+  ingressClassName: nginx
+  host: short.test
+
+secret:
+  name: all
+  secrets:
+    - name: DATABASE_URL
+      value: cG9zdGdyZXNxbDovL3Bvc3RncmVzOnBvc3RncmVzQHNlcnZpY2Utc2hvcnQtcG9zdGdyZXM6NTQzMi9wb3N0Z3Jlcw==
+    - name: POSTGRES_USER
+      value: cG9zdGdyZXM=
+    - name: POSTGRES_PASSWORD
+      value: cG9zdGdyZXM=

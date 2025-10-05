@@ -1,54 +1,95 @@
 app:
-  version: 1.2
   name: conv-app
-  image: antonlarichev/conv-app
   replicas: 1
+  image: antonlarichev/conv-app
+  version: 1.2
   port: 80
   limits:
     memory: 512Mi
     cpu: 500m
-  configMap: configmap-conv-service
+  configmap:
+    - VITE_DOMAIN
+
 rmq:
-  version: 4.1.4-management
   name: conv-rmq
-  image: rabbitmq
   replicas: 1
+  image: rabbitmq
+  version: 4.1.4-management
   port: 15672
   targetPort: 5672
   limits:
     memory: 512Mi
     cpu: 500m
+  secret:
+    - RABBITMQ_DEFAULT_USER
+    - RABBITMQ_DEFAULT_PASS
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
   mountPath: /var/lib/rabbitmq
-  pvc:
-    accessModes:
-      - ReadWriteOnce
-    storage: 1Gi
+
 api:
-  version: "1.0"
   name: conv-api
-  image: antonlarichev/conv-api
   replicas: 1
+  image: antonlarichev/conv-api
+  version: "1.0"
   port: 3000
   limits:
     memory: 512Mi
     cpu: 500m
-  mountPath: /opt/app/uploads
+  env:
+    - name: AMQP_HOSTNAME
+      value: service-conv-rmq
+    - name: AMQP_EXCHANGE
+      value: conv
+  secret:
+    - AMQP_USER
+    - AMQP_PASSWORD
   pvc:
     accessModes:
       - ReadWriteOnce
     storage: 1Gi
+  mountPath: /opt/app/uploads
+
 service:
-  version: "1.0"
   name: conv-service
-  image: antonlarichev/conv-service
   replicas: 1
+  image: antonlarichev/conv-service
+  version: "1.0"
   port: 3000
   limits:
     memory: 512Mi
     cpu: 500m
+  env:
+    - name: AMQP_HOSTNAME
+      value: service-conv-rmq
+    - name: AMQP_EXCHANGE
+      value: conv
+  secret:
+    - AMQP_USER
+    - AMQP_PASSWORD
+    - AMQP_QUEUE
+    
 ingress:
   name: ingress-conv
   ingressClassName: nginx
   host: conv.test
+
 secret:
-  name: secret-conv-api-service
+  name: all
+  secrets:
+    - name: AMQP_USER
+      value: cm1x
+    - name: AMQP_PASSWORD
+      value: cm1x
+    - name: AMQP_HOSTNAME
+      value: c2VydmljZS1jb252LXJtcQ==
+    - name: AMQP_EXCHANGE
+      value: Y29udg==
+    - name: AMQP_QUEUE
+      value: Y29udg==
+    - name: RABBITMQ_DEFAULT_USER
+      value: cm1x
+    - name: RABBITMQ_DEFAULT_PASS
+      value: cm1x

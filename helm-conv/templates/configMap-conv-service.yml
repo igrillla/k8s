@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.app.configMap }}
+  name: configmap-{{ .Values.app.name }}
 data: 
   VITE_DOMAIN: {{ .Values.ingress.host }}
   
