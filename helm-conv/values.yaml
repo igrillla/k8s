@@ -80,3 +80,18 @@ ingress:
 
 secret:
   name: all
+  secrets:
+    - name: AMQP_USER
+      value: cm1x
+    - name: AMQP_PASSWORD
+      value: cm1x
+    - name: AMQP_HOSTNAME
+      value: c2VydmljZS1jb252LXJtcQ==
+    - name: AMQP_EXCHANGE
+      value: Y29udg==
+    - name: AMQP_QUEUE
+      value: Y29udg==
+    - name: RABBITMQ_DEFAULT_USER
+      value: cm1x
+    - name: RABBITMQ_DEFAULT_PASS
+      value: cm1x
