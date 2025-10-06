@@ -1,3 +1,0 @@
-{{- include "pvc" .Values.api }}
----
-{{- include "pvc" .Values.rmq }} 

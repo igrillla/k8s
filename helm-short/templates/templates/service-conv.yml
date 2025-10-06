@@ -1,7 +1,0 @@
-{{- include "service" .Values.app }}
----
-{{- include "service" .Values.rmq }}
----
-{{- include "service" .Values.api }}
----
-{{- include "service" .Values.service }}
