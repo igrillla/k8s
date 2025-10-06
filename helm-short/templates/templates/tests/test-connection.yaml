@@ -1,0 +1,3 @@
+{{- include "test" .Values.app }}
+---
+{{- include "test" .Values.api }}
