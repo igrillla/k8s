@@ -1,0 +1,95 @@
+app:
+  name: conv-app
+  replicas: 1
+  image: antonlarichev/conv-app
+  version: 1.2
+  port: 80
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  configmap:
+    - VITE_DOMAIN
+
+rmq:
+  name: conv-rmq
+  replicas: 1
+  image: rabbitmq
+  version: 4.1.4-management
+  port: 15672
+  targetPort: 5672
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  secret:
+    - RABBITMQ_DEFAULT_USER
+    - RABBITMQ_DEFAULT_PASS
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
+  mountPath: /var/lib/rabbitmq
+
+api:
+  name: conv-api
+  replicas: 1
+  image: antonlarichev/conv-api
+  version: "1.0"
+  port: 3000
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  env:
+    - name: AMQP_HOSTNAME
+      value: service-conv-rmq
+    - name: AMQP_EXCHANGE
+      value: conv
+  secret:
+    - AMQP_USER
+    - AMQP_PASSWORD
+  pvc:
+    accessModes:
+      - ReadWriteOnce
+    storage: 1Gi
+  mountPath: /opt/app/uploads
+
+service:
+  name: conv-service
+  replicas: 1
+  image: antonlarichev/conv-service
+  version: "1.0"
+  port: 3000
+  limits:
+    memory: 512Mi
+    cpu: 500m
+  env:
+    - name: AMQP_HOSTNAME
+      value: service-conv-rmq
+    - name: AMQP_EXCHANGE
+      value: conv
+  secret:
+    - AMQP_USER
+    - AMQP_PASSWORD
+    - AMQP_QUEUE
+    
+ingress:
+  name: ingress-conv
+  ingressClassName: nginx
+  host: conv.test
+
+secret:
+  name: all
+  secrets:
+    - name: AMQP_USER
+      value: cm1x
+    - name: AMQP_PASSWORD
+      value: cm1x
+    - name: AMQP_HOSTNAME
+      value: c2VydmljZS1jb252LXJtcQ==
+    - name: AMQP_EXCHANGE
+      value: Y29udg==
+    - name: AMQP_QUEUE
+      value: Y29udg==
+    - name: RABBITMQ_DEFAULT_USER
+      value: cm1x
+    - name: RABBITMQ_DEFAULT_PASS
+      value: cm1x
