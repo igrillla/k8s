@@ -35,9 +35,7 @@ spec:
             - containerPort: {{ .port }}
           resources:
             limits: {{- toYaml .limits | nindent 14 }}
-          {{- if or .env .secret .configmap }}
           env:
-          {{- end }}
             {{- /* Обычные переменные */}}
             {{- if .env }}
             {{- range .env }}
@@ -103,7 +101,7 @@ data:
   {{- end }}
 {{- end }}
 
-{{- define "pvc"}}
+{{- define "pvc" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -114,4 +112,22 @@ spec:
   resources:
     requests:
       storage: {{ .pvc.storage }}
+{{- end }}
+
+{{- define "test" }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-{{ .name }}
+  labels:
+    components: "{{ .name}}"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['service-{{ .name }}:{{ .port }}{{ .path }}']
+  restartPolicy: Never
 {{- end }}

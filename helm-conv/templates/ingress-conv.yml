@@ -11,15 +11,15 @@ spec:
   - host: {{ .Values.ingress.host }}
     http:
       paths:
-      - pathType: Prefix
-        path: "/"
+      - path: {{ .Values.app.path }}
+        pathType: Prefix
         backend:
           service:
             name: service-{{ .Values.app.name }}
             port: 
               number: {{ .Values.app.port }}
-      - pathType: Prefix
-        path: "/api"
+      - path: {{ .Values.api.path }}
+        pathType: Prefix
         backend:
           service:
             name: service-{{ .Values.api.name }}

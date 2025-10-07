@@ -9,6 +9,7 @@ app:
     cpu: 500m
   configmap:
     - VITE_DOMAIN
+  path: /
 
 rmq:
   name: conv-rmq
@@ -46,6 +47,7 @@ api:
   secret:
     - AMQP_USER
     - AMQP_PASSWORD
+  path: /api
   pvc:
     accessModes:
       - ReadWriteOnce
